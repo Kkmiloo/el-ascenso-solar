@@ -15,7 +15,7 @@ export const IntroLevel = ({ title, onClick }: IntroLevelProps) => {
 
   return (
     <div
-      className={`bg-slate-600 w-screen h-screen absolute z-50 flex items-center justify-center cursor-pointer ${
+      className={`bg-gray-900 w-screen h-screen absolute z-50 flex items-center justify-center cursor-pointer ${
         fadeOut ? 'animate-fade-down' : ''
       }`}
       onClick={handleOnClick}
