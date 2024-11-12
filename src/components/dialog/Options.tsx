@@ -14,7 +14,7 @@ export const Options = ({ options, onSelectOption }: OptionsProps) => {
   };
 
   return (
-    <div className='animate-jump-in animate-duration-[800ms] animate-ease-out flex md:flex-row  flex-col items-center justify-center  md:gap-3 p-2 bg-slate-200 m-auto rounded-xl z-40 max-w-6xl'>
+    <div className='text-justify animate-jump-in animate-duration-[800ms] animate-ease-out flex md:flex-row  flex-col items-center justify-center  md:gap-3 p-2 bg-slate-200 m-auto rounded-xl z-40 max-w-6xl'>
       {options.map((option) => (
         <div
           key={option.id}
