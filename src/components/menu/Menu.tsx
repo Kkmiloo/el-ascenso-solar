@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   PlayIcon,
-  CogIcon,
-  InformationCircleIcon,
 } from '@heroicons/react/24/solid';
 
 // Fondo animado de partículas o fibra óptica
@@ -110,15 +108,6 @@ const Menu: React.FC = () => {
         <div className='space-y-6 max-w-md mx-auto'>
           <MenuButton to='/jugar' icon={PlayIcon}>
             Iniciar Juego
-          </MenuButton>
-
-          <MenuButton to='/settings' icon={CogIcon}>
-            Configuraciones
-          </MenuButton>
-
-
-          <MenuButton to='/about' icon={InformationCircleIcon}>
-            Acerca de
           </MenuButton>
         </div>
 

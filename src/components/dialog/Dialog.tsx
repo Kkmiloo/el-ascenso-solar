@@ -68,7 +68,7 @@ export const Dialog = ({
             } flex  h-full ml-3 md:ml-8 w-full`}
           >
             {!showQuestion && (
-              <div>
+              <div className='text-justify'>
                 {showIntroText && (
                   <Typewriter
                     text={text}

@@ -42,7 +42,10 @@ const Typewriter = ({
 
       if (keyword) {
         result.push(
-          <span style={{ color: 'blue', fontWeight: 'bold' }} key={i}>
+          <span
+            style={{ color: 'rgb(34, 211, 238)', fontWeight: 'bold' }}
+            key={i}
+          >
             {keyword}
           </span>
         );
