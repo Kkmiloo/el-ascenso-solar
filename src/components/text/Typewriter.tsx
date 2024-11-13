@@ -15,21 +15,49 @@ const Typewriter = ({
 }: TypewriterProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState<(JSX.Element | string)[]>([]);
-  const keywords = [
-    'COP',
-    '8 horas',
-    '5 casas locales',
-    '5 instalaciones diarias',
-    '20 instalaciones diarias',
-    '50 instalaciones en 30 días',
-    '100 hogares',
-    '300 instalaciones',
-    '$50,000',
-    '$75,000',
-    '$100,000',
-    '$200,000',
-    '$300,000',
-  ];
+  const keywords = useMemo(
+    () => [
+      '8 horas',
+      '5 casas locales',
+      '"incapacidad operativa"',
+      '3 instalaciones',
+      '5 instalaciones',
+      '5 instalaciones diarias',
+      '20 instalaciones diarias',
+      '12 instalaciones',
+      'empresas comerciales',
+      '50 instalaciones',
+      '"incumplimiento de contrato"',
+      '100 hogares',
+      '50 paneles',
+      '30 paneles',
+      '100 instalaciones solares',
+      'proyectos municipales',
+      '100 hogares',
+      '300 instalaciones',
+      '"mala gestión logística"',
+      '50 instalaciones',
+      '3 ciudades',
+      '300 instalaciones',
+      '"mala planificación de expansión"',
+      '150 instalaciones',
+      '500 instalaciones',
+      '"incapacidad operativa internacional"',
+      '300 instalaciones',
+      'mega proyecto solar',
+      'Chile',
+      '1,000 paneles solares',
+      '"incapacidad operativa en mega proyectos"',
+      '500 instalaciones',
+      '$50,000 COP',
+      '$75,000 COP',
+      '$100,000 COP',
+      '$150,000 COP',
+      '$200,000 COP',
+      '$300,000 COP',
+    ],
+    []
+  );
 
   // Usar `useMemo` para calcular `fullText` solo una vez
   const fullText = useMemo(() => {
@@ -42,10 +70,7 @@ const Typewriter = ({
 
       if (keyword) {
         result.push(
-          <span
-            style={{ color: 'rgb(34, 211, 238)', fontWeight: 'bold' }}
-            key={i}
-          >
+          <span style={{ color: '#3b82f6', fontWeight: 'bold' }} key={i}>
             {keyword}
           </span>
         );
