@@ -72,5 +72,6 @@ export const levelEight: GameLevelI = {
   incorrectQuestionMessage: `perdiste una vida por "incapacidad operativa en mega proyectos". Solo realizaste 500 instalaciones, lo que no cumplió con el mega proyecto y afectó tu posición en el mercado global.`,
   goal: 1000,
   installationTime: 10,
-  moneyPerInstallation: 300000
+  moneyPerInstallation: 300000,
+  image: 'l8.jpg',
 };

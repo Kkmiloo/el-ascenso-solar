@@ -72,5 +72,6 @@ export const levelSix: GameLevelI = {
   incorrectQuestionMessage: `perdiste una vida por "mala planificación de expansión". Al solo completar 150 instalaciones, no cumpliste con el contrato nacional, afectando tu capacidad de seguir expandiéndote.`,
   goal: 300,
   installationTime: 5,
-  moneyPerInstallation: 100000
+  moneyPerInstallation: 100000,
+  image: 'l6.jpg',
 };

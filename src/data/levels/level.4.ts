@@ -71,5 +71,6 @@ export const levelFour: GameLevelI = {
   incorrectQuestionMessage: `perdiste una vida por "incumplimiento de contrato". Solo instalaste 50 paneles, lo que no fue suficiente para cumplir con el contrato.`,
   goal: 100,
   installationTime: 2,
-  moneyPerInstallation: 75000
+  moneyPerInstallation: 75000,
+  image: 'l4.jpg',
 };

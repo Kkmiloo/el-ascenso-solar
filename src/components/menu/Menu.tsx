@@ -18,6 +18,7 @@ from-gray-700 via-gray-900 to-black
       transition={{ duration: 1 }}
     />
     {/* Efecto de partículas o líneas de conexión */}
+    <div className='absolute inset-0 blur-md bg-scene2 bg-cover bg-no-repeat object-fill'></div>
     <div className='absolute inset-0 opacity-20'>
       {[...Array(50)].map((_, i) => (
         <motion.div
@@ -87,14 +88,14 @@ const Menu: React.FC = () => {
 
       {/* Contenedor del Menú */}
       <motion.div
-        className='relative z-10 text-center'
+        className='bg-black bg-opacity-70 p-6 rounded-lg max-w-4xl w-full flex flex-col items-center z-20 justify-center'
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         {/* Título del Juego */}
         <motion.h1
-          className='text-6xl font-extrabold text-white mb-12 
+          className='text-5xl font-extrabold text-white mb-12 
             bg-clip-text text-transparent 
             bg-gradient-to-r from-blue-300 to-purple-500'
           initial={{ scale: 0.8, opacity: 0 }}
@@ -105,7 +106,7 @@ const Menu: React.FC = () => {
         </motion.h1>
 
         {/* Contenedor de Botones */}
-        <div className='space-y-6 max-w-md mx-auto'>
+        <div className='space-y-6 min-w-md mx-auto'>
           <MenuButton to='/jugar' icon={PlayIcon}>
             Iniciar Juego
           </MenuButton>

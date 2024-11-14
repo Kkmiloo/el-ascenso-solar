@@ -11,4 +11,5 @@ export interface GameLevelI {
   goal: number;
   installationTime: number;
   moneyPerInstallation: number;
+  image?: string;
 }
