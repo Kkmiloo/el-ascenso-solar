@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
+import { ReactTyped } from 'react-typed';
 
 interface TypewriterProps {
   text: string;
@@ -7,38 +8,6 @@ interface TypewriterProps {
   onComplete: () => void;
 }
 
-const highlightKeywords = (text: string, keywords: string[]) => {
-  // Crear una expresión regular que busque las palabras clave
-  const keywordPattern = keywords
-    .sort((a, b) => b.length - a.length) // Ordenar de más largo a más corto
-    .map(
-      (keyword) => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // Escapar caracteres especiales
-    )
-    .join('|');
-
-  const regex = new RegExp(`(${keywordPattern})`, 'gi');
-
-  // Dividir y resaltar
-  return text.split(regex).map((part, index) => {
-    const isKeyword = keywords.some(
-      (keyword) => keyword.toLowerCase() === part.toLowerCase()
-    );
-
-    return isKeyword ? (
-      <span
-        key={index}
-        style={{
-          color: '#3b82f6',
-          fontWeight: 'bold',
-        }}
-      >
-        {part}
-      </span>
-    ) : (
-      part
-    );
-  });
-};
 const Typewriter = ({
   text,
   delay,
@@ -90,36 +59,56 @@ const Typewriter = ({
     []
   );
 
-   useEffect(() => {
-     // Resetear si el texto cambia
-     setDisplayText([]);
-   }, [text]);
+  const highlightKeywords = (text: string) => {
+    const keywordPattern = keywords
+      .sort((a, b) => b.length - a.length) // Ordenar de más largo a más corto
+      .map(
+        (keyword) => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // Escapar caracteres especiales
+      )
+      .join('|');
 
-   useEffect(() => {
-     // Si la animación ya terminó, mostrar texto completo
-     if (animationFinished) {
-       setDisplayText(highlightKeywords(text, keywords));
-       onComplete();
-       return;
-     }
+    const regex = new RegExp(`(${keywordPattern})`, 'gi');
 
-     // Animación de escritura
-     let currentIndex = 0;
-     const timer = setInterval(() => {
-       if (currentIndex < text.length) {
-         const currentText = text.slice(0, currentIndex + 1);
-         setDisplayText(highlightKeywords(currentText, keywords));
-         currentIndex++;
-       } else {
-         clearInterval(timer);
-         onComplete();
-       }
-     }, delay);
+    return text.split(regex).map((part, index) => {
+      const isKeyword = keywords.some(
+        (keyword) => keyword.toLowerCase() === part.toLowerCase()
+      );
 
-     return () => clearInterval(timer);
-   }, [text, delay, animationFinished, keywords, onComplete]);
+      return isKeyword ? (
+        <span key={index} style={{ color: '#3b82f6', fontWeight: 'bold' }}>
+          {part}
+        </span>
+      ) : (
+        part
+      );
+    });
+  };
 
-   return <span >{displayText}</span>;
+  useEffect(() => {
+    if (animationFinished) {
+      setDisplayText(highlightKeywords(text));
+      onComplete();
+    }
+  }, [animationFinished, text, onComplete]);
+
+  return (
+    <div>
+      {animationFinished ? (
+        <div>{displayText}</div>
+      ) : (
+        <ReactTyped
+          strings={[text]}
+          typeSpeed={delay}
+          onComplete={() => {
+            setDisplayText(highlightKeywords(text)); // Resaltar después de completar
+            onComplete();
+          }}
+          loop={false}
+          style={{ whiteSpace: 'pre-wrap' }} // Mantener el formato
+        />
+      )}
+    </div>
+  );
 };
 
 export default Typewriter;
