@@ -7,13 +7,44 @@ interface TypewriterProps {
   onComplete: () => void;
 }
 
+const highlightKeywords = (text: string, keywords: string[]) => {
+  // Crear una expresión regular que busque las palabras clave
+  const keywordPattern = keywords
+    .sort((a, b) => b.length - a.length) // Ordenar de más largo a más corto
+    .map(
+      (keyword) => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // Escapar caracteres especiales
+    )
+    .join('|');
+
+  const regex = new RegExp(`(${keywordPattern})`, 'gi');
+
+  // Dividir y resaltar
+  return text.split(regex).map((part, index) => {
+    const isKeyword = keywords.some(
+      (keyword) => keyword.toLowerCase() === part.toLowerCase()
+    );
+
+    return isKeyword ? (
+      <span
+        key={index}
+        style={{
+          color: '#3b82f6',
+          fontWeight: 'bold',
+        }}
+      >
+        {part}
+      </span>
+    ) : (
+      part
+    );
+  });
+};
 const Typewriter = ({
   text,
   delay,
   animationFinished,
   onComplete,
 }: TypewriterProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState<(JSX.Element | string)[]>([]);
   const keywords = useMemo(
     () => [
@@ -59,56 +90,36 @@ const Typewriter = ({
     []
   );
 
-  // Usar `useMemo` para calcular `fullText` solo una vez
-  const fullText = useMemo(() => {
-    const result = [];
-    let i = 0;
+   useEffect(() => {
+     // Resetear si el texto cambia
+     setDisplayText([]);
+   }, [text]);
 
-    while (i < text.length) {
-      const remainingText = text.slice(i);
-      const keyword = keywords.find((kw) => remainingText.startsWith(kw));
+   useEffect(() => {
+     // Si la animación ya terminó, mostrar texto completo
+     if (animationFinished) {
+       setDisplayText(highlightKeywords(text, keywords));
+       onComplete();
+       return;
+     }
 
-      if (keyword) {
-        result.push(
-          <span style={{ color: '#3b82f6', fontWeight: 'bold' }} key={i}>
-            {keyword}
-          </span>
-        );
-        i += keyword.length;
-      } else {
-        result.push(text[i]);
-        i += 1;
-      }
-    }
+     // Animación de escritura
+     let currentIndex = 0;
+     const timer = setInterval(() => {
+       if (currentIndex < text.length) {
+         const currentText = text.slice(0, currentIndex + 1);
+         setDisplayText(highlightKeywords(currentText, keywords));
+         currentIndex++;
+       } else {
+         clearInterval(timer);
+         onComplete();
+       }
+     }, delay);
 
-    return result;
-  }, [text, keywords]);
+     return () => clearInterval(timer);
+   }, [text, delay, animationFinished, keywords, onComplete]);
 
-  // Mostrar el texto completo si `animationFinished` es verdadero
-  useEffect(() => {
-    if (animationFinished) {
-      setDisplayText(fullText);
-      onComplete(); // Llama a la función cuando la animación termina
-    }
-  }, [animationFinished, onComplete]);
-
-  // Lógica de animación por letra si `animationFinished` es falso
-  useEffect(() => {
-    if (animationFinished || currentIndex >= fullText.length)
-    {
-      onComplete();
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setDisplayText((prev) => [...prev, fullText[currentIndex]]);
-      setCurrentIndex(currentIndex + 1);
-    }, delay);
-
-    return () => clearTimeout(timeout);
-  }, [currentIndex, delay, fullText, animationFinished]);
-
-  return <span>{displayText}</span>;
+   return <span>{displayText}</span>;
 };
 
 export default Typewriter;
