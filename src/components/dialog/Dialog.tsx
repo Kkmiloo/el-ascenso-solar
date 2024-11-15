@@ -58,13 +58,11 @@ export const Dialog = ({
         >
           <img
             src={showQuestion ? robotQuestion : robot}
-            className=' max-w-28 md:max-w-36 h-fit rounded-xl p-2'
+            className=' max-w-28 max-h-28 md:max-w-36 md:max-h-36 rounded-xl p-2'
           />
           <div
             className={`${
-              showQuestion
-                ? 'justify-start '
-                : 'justify-between flex-col text-base md:text-xl'
+              showQuestion ? 'justify-start ' : 'justify-between flex-col '
             } flex  h-full ml-3 md:ml-8 w-full`}
           >
             {!showQuestion && (
@@ -90,7 +88,7 @@ export const Dialog = ({
                     💸: {Intl.NumberFormat().format(moneyPerInstallation)}
                   </p>
                 </div>
-                <div className='ml-4'>
+                <div className='ml-4 text-sm md:text-xl '>
                   <Typewriter
                     text={question}
                     delay={30}

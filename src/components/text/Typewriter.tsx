@@ -119,7 +119,7 @@ const Typewriter = ({
      return () => clearInterval(timer);
    }, [text, delay, animationFinished, keywords, onComplete]);
 
-   return <span>{displayText}</span>;
+   return <span >{displayText}</span>;
 };
 
 export default Typewriter;
