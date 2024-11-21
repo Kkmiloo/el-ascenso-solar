@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const titles = [
+  'Inicia tu aventura',
+  'Desarrollo y estrategia',
+  'El camino hacia el éxito',
+  'Bienvenido al Juego',
+];
 interface IntroductionProps {
   onStart: () => void;
 }
@@ -48,15 +54,13 @@ export const Introduction = ({ onStart }: IntroductionProps) => {
     >
       {/* Efecto de líneas de fondo */}
 
-
       <motion.h1
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className='text-5xl mb-4  font-bold
-  '
+        className='text-5xl mb-4 font-bold'
       >
-        Bienvenido al Juego
+        {titles[currentDialogueIndex]}
       </motion.h1>
 
       <AnimatePresence mode='wait'>
@@ -68,19 +72,24 @@ export const Introduction = ({ onStart }: IntroductionProps) => {
           exit='exit'
           className='text-justify'
         >
-          {currentDialogueIndex == 0 && (
-            <p className='text-xl mb-8  max-w-4xl mx-auto'>
-              ¡Es hora de demostrar tu visión, ingenio y liderazgo! En este
-              emocionante viaje, tomarás el rol de un emprendedor ambicioso que
-              ha decidido transformar el mundo con soluciones innovadoras en
-              energía solar. Tu misión: construir desde cero una empresa que
-              desarrolle tecnologías solares, aportando al crecimiento
-              sostenible y rentable.
-            </p>
+          {currentDialogueIndex === 0 && (
+            <>
+              <p className='text-xl mb-8 max-w-4xl mx-auto'>
+                ¡Es hora de demostrar tu visión, ingenio y liderazgo! En este
+                emocionante viaje, tomarás el rol de un emprendedor ambicioso
+                que ha decidido transformar el mundo con soluciones innovadoras
+                en energía solar.
+              </p>
+              <p className='text-xl mb-8 max-w-4xl mx-auto'>
+                <strong>Tu misión: </strong>construir desde cero una empresa que
+                desarrolle tecnologías solares, aportando al crecimiento
+                sostenible y rentable.
+              </p>
+            </>
           )}
 
-          {currentDialogueIndex == 1 && (
-            <p className='text-xl mb-8  max-w-4xl mx-auto'>
+          {currentDialogueIndex === 1 && (
+            <p className='text-xl mb-8 max-w-4xl mx-auto'>
               A lo largo del juego, te enfrentarás a decisiones clave que
               pondrán a prueba tu capacidad para tomar decisiones estratégicas,
               gestionar recursos y liderar equipos. Comenzarás solo,
@@ -90,16 +99,16 @@ export const Introduction = ({ onStart }: IntroductionProps) => {
             </p>
           )}
 
-          {currentDialogueIndex == 2 && (
+          {currentDialogueIndex === 2 && (
             <p className='text-xl mb-8 max-w-4xl mx-auto'>
-              Tu objetivo es claro: convertirte en el CEO de una empresa líder
-              en energía solar, transformando hogares, empresas, y ciudades con
-              energía limpia. ¿Estás listo para iluminar el futuro con tu
-              visión?
+              <strong>Tu objetivo es claro:</strong> convertirte en el CEO de
+              una empresa líder en energía solar, transformando hogares,
+              empresas, y ciudades con energía limpia. ¿Estás listo para
+              iluminar el futuro con tu visión?
             </p>
           )}
 
-          {currentDialogueIndex == 3 && (
+          {currentDialogueIndex === 3 && (
             <p className='text-xl mb-8 font-bold max-w-4xl mx-auto'>
               ¡Adelante, emprendedor! El futuro de la energía está en tus manos.
             </p>
